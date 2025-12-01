@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alert Logs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Alert Logs</h1>
+    <pre>
+{% for line in logs %}
+{{ line }}
+{% endfor %}
+    </pre>
+    <p><a href="/">Back to Dashboard</a></p>
+</body>
+</html>
