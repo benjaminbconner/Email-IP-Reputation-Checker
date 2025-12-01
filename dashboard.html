@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email IP Reputation Checker</title>
+    <style>
+        body { font-family: "Segoe UI", Arial, sans-serif; background: #f9fafc; margin: 0; padding: 0; color: #333; }
+        header { background: #0078d7; color: white; padding: 20px; text-align: center; }
+        h1 { margin: 0; font-size: 28px; }
+        .container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        form { display: flex; gap: 10px; margin-bottom: 20px; }
+        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { background: #0078d7; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s ease; }
+        button:hover { background: #005a9e; }
+        .message { padding: 15px; border-radius: 6px; font-size: 15px; margin-bottom: 20px; }
+        .safe { background: #e6f7e6; color: #2d7a2d; border: 1px solid #b2d8b2; }
+        .alert { background: #ffe6e6; color: #a12d2d; border: 1px solid #e0a1a1; }
+        .error { background: #fff4e6; color: #a15c2d; border: 1px solid #e0c1a1; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
+        th { background: #f0f0f0; }
+        footer { text-align: center; padding: 15px; font-size: 13px; color: #666; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Email IP Reputation Checker</h1>
+        <p>Check if an IP used in email headers is flagged as abusive</p>
+    </header>
+
+    <div class="container">
+        <form method="POST">
+            <input type="text" name="ip" placeholder="Enter email server IP address" required>
+            <button type="submit">Check IP</button>
+        </form>
+
+        {% if alert_message %}
+            <div class="message 
+                {% if 'safe' in alert_message %}safe{% elif 'Error' in alert_message %}error{% else %}alert{% endif %}">
+                {{ alert_message }}
+            </div>
+        {% endif %}
+
+        <h2>Recent Checks</h2>
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>Level</th>
+                <th>Message</th>
+            </tr>
+            {% for line in recent_logs %}
+                {% set parts = line.split(" - ") %}
+                <tr>
+                    <td>{{ parts[0] }}</td>
+                    <td>{{ parts[1] }}</td>
+                    <td>{{ parts[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <footer>
+        <p>Powered by AbuseIPDB API | Outlook Email Alerts Enabled</p>
+        <p><a href="/logs">View Full Logs</a></p>
+    </footer>
+</body>
+</html>
+
