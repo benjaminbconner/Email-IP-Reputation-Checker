@@ -7,6 +7,8 @@ A Flask web app that checks email server IPs against AbuseIPDB, sends Outlook al
 - Logs stored in `alerts.log`
 - Web dashboard with recent checks
 
+Repo Structure
+
 email_alert_app/
 ├── app.py
 ├── abuseipdb.py
